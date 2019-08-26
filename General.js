@@ -1,42 +1,32 @@
 ///////////////// PROCESS GENERAL FOR GAME /////////////////////
-let start = 0;
-function drawGame(timestamp){
+function drawGame() {
+    if (!isGameOver) {
 
-    if (!start) start = timestamp;
-    let progress = timestamp - start;
-    if(progress >40){
-        if(!isGameOver){
-            ctx.clearRect(0,0,canvasConfig.width,canvasConfig.height);
+        ctx.clearRect(0, 0, canvasConfig.width, canvasConfig.height);
 
-            ball1.draw();
-            //   ball2.draw();
+        ball1.draw();
+        //ball2.draw();
+        bar.draw();
+        wall.draw();
+        ball1.processBallBound();
+       // ball2.processBallBound();
 
-            bar.draw();
-            wall.draw();
+        bar.processBarBall(ball1);
+      //  bar.processBarBall(ball2);
 
-            ball1.processBallBound();
-            //   ball2.processBallBound();
+        ball1.updatePosition();
+      //  ball2.updatePosition();
 
-            bar.processBarBall(ball1);
-            //  bar.processBarBall(ball2);
+        wall.processBallWall(ball1);
+       // wall.processBallWall(ball2);
 
+        bar.updatePosition();
 
-            ball1.updatePosition();
-            //   ball2.updatePosition();
+        requestAnimationFrame(drawGame);
 
-            wall.processBallWall(ball1);
-            //  wall.processBallWall(ball2);
-
-            bar.updatePosition();
-
-            requestAnimationFrame(drawGame);
-        }else{
-            processGameOver();
-        }
-
+    } else {
+        processGameOver();
     }
-
-
 }
 
 function initBestScore() {
@@ -50,6 +40,7 @@ function initBestScore() {
 function storeBestScore() {
     if(score.currentScore > score.bestScore){
         score.bestScore=score.currentScore;
+        score.currentScore=0;
         localStorage.setItem("bestScore",score.bestScore.toString());
     }
 }
@@ -57,15 +48,15 @@ function storeBestScore() {
 function initGame() {
     isGameOver=false;
     initBestScore();
+    score.currentScore=0;
+    bar=new Bar(canvasConfig);
+    wall= new Wall(canvasConfig);
+    ball1= new Ball(15,5,5);
+  //  ball2= new Ball(15,6,6);
+    wall.init();
     document.addEventListener("keyup",stopBar);
     document.addEventListener("keydown",moveBar);
-    score.currentScore=0;
-    wall.init();
-    bar.resetPosition();
-    ball1.resetPosition();
-   // ball2.resetPosition();
-   // setInterval(drawGame,30);
-     drawGame();
+    drawGame();
 }
 
 /////////////PROCESS GAMEOVER //////////////////////
@@ -73,12 +64,12 @@ function initGame() {
 function processGameOver(){
     let continueGame;
     if(isGameWin){
-        storeBestScore();
         alert("Điểm :" + score.currentScore + "\n Điểm cao nhất của bạn: "+ score.bestScore);
+        storeBestScore();
         continueGame=confirm("             YOU ARE WIN !!! \n        Bạn có muốn chơi lại Game này?");
     }else{
-        storeBestScore();
         alert("Điểm:" + score.currentScore + "\n Điểm cao nhất của bạn: "+ score.bestScore);
+        storeBestScore();
         continueGame=confirm("             YOU ARE LOSE !!! \n        Bạn có muốn chơi lại Game này?");
     }
     if(continueGame){

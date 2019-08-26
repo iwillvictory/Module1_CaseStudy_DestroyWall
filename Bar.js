@@ -7,6 +7,8 @@ function Bar(canvasConfig){
     this.posX = canvasConfig.width/2 -75;
     this.posY = canvasConfig.height-15;
     this.speed=15;
+    this.maxSpeed=30;
+    this.minSpeed=10;
     this.isMovingLeft=false;
     this.isMovingRight=false;
 
@@ -33,9 +35,11 @@ function Bar(canvasConfig){
         if(event.keyCode==37){
             this.isMovingLeft=false;
 
+
         }else if(event.keyCode==39){
             this.isMovingRight=false;
         }
+        this.speed=this.minSpeed;
     };
 
     this.moveBar=function(event) {
@@ -43,6 +47,9 @@ function Bar(canvasConfig){
             this.isMovingLeft=true;
         }else if(event.keyCode==39){
             this.isMovingRight=true;
+        }
+        if(this.speed <this.maxSpeed){
+            this.speed+=2;
         }
     };
 

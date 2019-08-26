@@ -16,8 +16,9 @@ let canvasConfig={
 
 let bar=new Bar(canvasConfig);
 let wall= new Wall(canvasConfig);
-let ball1= new Ball(15,10,10);
-//let ball2= new Ball(15,3,6);
+let ball1= new Ball(15,5,5);
+//let ball2= new Ball(15,6,6);
+
 let score={
     currentScore:0,
     bestScore: 0,
@@ -25,4 +26,5 @@ let score={
 };
 let isGameWin=false;
 let isGameOver=false;
+//localStorage.setItem("bestScore", '0');
 initGame();
