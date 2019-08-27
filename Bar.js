@@ -32,6 +32,7 @@ function Bar(canvasConfig){
     };
 
     this.stopBar=function(event){
+        console.log('stopBar', event, this);
         if(event.keyCode==37){
             this.isMovingLeft=false;
 
@@ -43,6 +44,8 @@ function Bar(canvasConfig){
     };
 
     this.moveBar=function(event) {
+        console.log('moveBar', event, this);
+
         if(event.keyCode==37){
             this.isMovingLeft=true;
         }else if(event.keyCode==39){
@@ -68,9 +71,11 @@ function Bar(canvasConfig){
 }
 
 
+/*
 function stopBar(event){
         bar.stopBar(event);
     }
     function moveBar(event) {
        bar.moveBar(event);
     }
+*/

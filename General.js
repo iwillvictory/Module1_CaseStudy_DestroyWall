@@ -54,8 +54,12 @@ function initGame() {
     ball1= new Ball(15,5,5);
   //  ball2= new Ball(15,6,6);
     wall.init();
-    document.addEventListener("keyup",stopBar);
-    document.addEventListener("keydown",moveBar);
+    document.addEventListener("keyup",function (event) {
+        bar.stopBar(event);
+    });
+    document.addEventListener("keydown",function (event) {
+        bar.moveBar(event);
+    });
     drawGame();
 }
 
