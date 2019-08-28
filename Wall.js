@@ -9,13 +9,15 @@ function Brick(posX,posY,color){
 }
 
 
-function Wall(canvasConfig){
+function Wall(canvas){
+    this.canvas=canvas;
+    this.ctx=canvas.getContext("2d");
     this.bricks=[];
-    this.beginX = canvasConfig.width*0.022;
-    this.beginY = canvasConfig.width* 0.02;
-    this.padding= canvasConfig.width* 0.022;
-    this.brickWidth= canvasConfig.width* 0.1;
-    this.brickHeight= canvasConfig.width* 0.05;
+    this.beginX = canvas.width*0.022;
+    this.beginY = canvas.width* 0.02;
+    this.padding= canvas.width* 0.022;
+    this.brickWidth= canvas.width* 0.1;
+    this.brickHeight= canvas.width* 0.05;
     this.rows= 4;
     this.columns= 8;
     this.brickColors=['red','black'];
@@ -41,10 +43,10 @@ function Wall(canvasConfig){
     this.draw=function () {
         for(let brick of this.bricks){
             if(!brick.isDestroy){
-                ctx.beginPath();
-                ctx.fillStyle=brick.color;
-                ctx.fillRect(brick.posX, brick.posY,this.brickWidth,this.brickHeight);
-                ctx.closePath();
+                this.ctx.beginPath();
+                this.ctx.fillStyle=brick.color;
+                this.ctx.fillRect(brick.posX, brick.posY,this.brickWidth,this.brickHeight);
+                this.ctx.closePath();
             }
         }
     };

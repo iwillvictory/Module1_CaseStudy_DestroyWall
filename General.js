@@ -2,7 +2,7 @@
 function drawGame() {
     if (!isGameOver) {
 
-        ctx.clearRect(0, 0, canvasConfig.width, canvasConfig.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ball1.draw();
         //ball2.draw();
@@ -49,9 +49,9 @@ function initGame() {
     isGameOver=false;
     initBestScore();
     score.currentScore=0;
-    bar=new Bar(canvasConfig);
-    wall= new Wall(canvasConfig);
-    ball1= new Ball(15,5,5);
+    bar=new Bar(canvas);
+    wall= new Wall(canvas);
+    ball1= new Ball(15,5,5,canvas);
   //  ball2= new Ball(15,6,6);
     wall.init();
     document.addEventListener("keyup",function (event) {
@@ -85,8 +85,8 @@ function processGameOver(){
 function drawGameOver() {
     ctx.beginPath();
     ctx.font="40px red";
-    ctx.strokeRect(canvasConfig.width/2-80,canvasConfig.height/2-70,200,100);
-    ctx.fillText("GAME OVER",canvasConfig.width/2-50,canvasConfig.height/2 -15,150);
+    ctx.strokeRect(canvas.width/2-80,canvas.height/2-70,200,100);
+    ctx.fillText("GAME OVER",canvas.width/2-50,canvas.height/2 -15,150);
     ctx.closePath();
 }
 

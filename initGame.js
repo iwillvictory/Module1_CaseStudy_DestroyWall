@@ -8,15 +8,9 @@
 
 let canvas= document.getElementById("canvasGame");
 let ctx = canvas.getContext("2d");
-
-let canvasConfig={
-    width: canvas.width,
-    height: canvas.height
-};
-
-let bar=new Bar(canvasConfig);
-let wall= new Wall(canvasConfig);
-let ball1= new Ball(15,5,5);
+let bar=new Bar(canvas);
+let wall= new Wall(canvas);
+let ball1= new Ball(15,5,5,canvas);
 //let ball2= new Ball(15,6,6);
 
 let score={

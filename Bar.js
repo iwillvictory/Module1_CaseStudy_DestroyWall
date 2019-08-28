@@ -1,11 +1,12 @@
 /////////////////////////PROCESS BAR //////////////////////
 
-function Bar(canvasConfig){
-    this.canvasConfig=canvasConfig;
+function Bar(canvas){
+    this.canvas=canvas;
+    this.ctx=canvas.getContext("2d");
     this.width= 150;
     this.height= 15;
-    this.posX = canvasConfig.width/2 -75;
-    this.posY = canvasConfig.height-15;
+    this.posX = canvas.width/2 -75;
+    this.posY = canvas.height-15;
     this.speed=15;
     this.maxSpeed=30;
     this.minSpeed=10;
@@ -13,26 +14,25 @@ function Bar(canvasConfig){
     this.isMovingRight=false;
 
     this.draw= function(){
-        ctx.beginPath();
-        let grad= ctx.createLinearGradient(this.posX, this.posY, this.posX+ this.width,this.posY);
+        this.ctx.beginPath();
+        let grad= this.ctx.createLinearGradient(this.posX, this.posY, this.posX+ this.width,this.posY);
         grad.addColorStop(0,"blue");
         grad.addColorStop(0.5, "yellow");
         grad.addColorStop(1,"blue");
-        ctx.fillStyle=grad;
-        ctx.fillRect(this.posX,this.posY,this.width,this.height);
-        ctx.closePath();
+        this.ctx.fillStyle=grad;
+        this.ctx.fillRect(this.posX,this.posY,this.width,this.height);
+        this.ctx.closePath();
     };
 
     this.updatePosition= function(){
         if(this.isMovingLeft && this.posX > 0){
             this.posX -=this.speed;
-        }else if(this.isMovingRight && this.posX < this.canvasConfig.width - this.width){
+        }else if(this.isMovingRight && this.posX < this.canvas.width - this.width){
             this.posX +=this.speed;
         }
     };
 
     this.stopBar=function(event){
-        console.log('stopBar', event, this);
         if(event.keyCode==37){
             this.isMovingLeft=false;
 
@@ -44,7 +44,6 @@ function Bar(canvasConfig){
     };
 
     this.moveBar=function(event) {
-        console.log('moveBar', event, this);
 
         if(event.keyCode==37){
             this.isMovingLeft=true;
@@ -57,25 +56,25 @@ function Bar(canvasConfig){
     };
 
     this.resetPosition=function(){
-        this.posX=this.canvasConfig.width/2 -75;
-        this.posY=this.canvasConfig.height-15;
+        this.posX=this.canvas.width/2 -75;
+        this.posY=this.canvas.height-15;
     };
 
     this.processBarBall=function (ball) {
-        if(ball.posX+ball.radius > this.posX && ball.posX-ball.radius < this.posX+ this.width &&
-            ball.posY+ball.radius >= this.canvasConfig.height- this.height){
+        let isBallMeetBar=ball.posX+ball.radius > this.posX && ball.posX-ball.radius < this.posX+ this.width &&
+                                            ball.posY+ball.radius >= this.canvas.height- this.height;
+        if(isBallMeetBar){
             ball.dy=-ball.dy;
+            if(this.isMovingLeft && ball.dx > 0){
+                ball.dx=-ball.dx;
+            }else if( this.isMovingRight && ball.dx < 0){
+                ball.dx=-ball.dx;
+            }
+
         }
     };
 
 }
 
 
-/*
-function stopBar(event){
-        bar.stopBar(event);
-    }
-    function moveBar(event) {
-       bar.moveBar(event);
-    }
-*/
+
