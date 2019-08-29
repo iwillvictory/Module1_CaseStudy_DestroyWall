@@ -5,22 +5,18 @@ function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ball1.draw();
-        //ball2.draw();
         bar.draw();
         wall.draw();
-        ball1.processBallBound();
-       // ball2.processBallBound();
 
+        ball1.processBallBound();
         bar.processBarBall(ball1);
-      //  bar.processBarBall(ball2);
 
         ball1.updatePosition();
-      //  ball2.updatePosition();
-
         wall.processBallWall(ball1);
-       // wall.processBallWall(ball2);
-
         bar.updatePosition();
+
+        showScore("score",score.currentScore);
+        showScore("bestScore",score.bestScore);
 
         requestAnimationFrame(drawGame);
 
@@ -52,7 +48,6 @@ function initGame() {
     bar=new Bar(canvas);
     wall= new Wall(canvas);
     ball1= new Ball(15,5,5,canvas);
-  //  ball2= new Ball(15,6,6);
     wall.init();
     document.addEventListener("keyup",function (event) {
         bar.stopBar(event);
@@ -65,28 +60,28 @@ function initGame() {
 
 /////////////PROCESS GAMEOVER //////////////////////
 
-function processGameOver(){
-    let continueGame;
-    if(isGameWin){
-        alert("Điểm :" + score.currentScore + "\n Điểm cao nhất của bạn: "+ score.bestScore);
+function processGameOver() {
+    if (isGameWin && isGameOver) {
+        drawGameOver("YOU ARE WIN");
         storeBestScore();
-        continueGame=confirm("             YOU ARE WIN !!! \n        Bạn có muốn chơi lại Game này?");
-    }else{
-        alert("Điểm:" + score.currentScore + "\n Điểm cao nhất của bạn: "+ score.bestScore);
+    } else if (isGameLose && isGameOver) {
+        drawGameOver("YOU ARE LOSE");
+    } else {
+        drawGameOver("GAME OVER");
         storeBestScore();
-        continueGame=confirm("             YOU ARE LOSE !!! \n        Bạn có muốn chơi lại Game này?");
-    }
-    if(continueGame){
-        initGame();
-    }else{
-        drawGameOver();
     }
 }
-function drawGameOver() {
+function drawGameOver(message) {
     ctx.beginPath();
     ctx.font="40px red";
     ctx.strokeRect(canvas.width/2-80,canvas.height/2-70,200,100);
-    ctx.fillText("GAME OVER",canvas.width/2-50,canvas.height/2 -15,150);
+    ctx.fillText(message,canvas.width/2-50,canvas.height/2 -15,150);
     ctx.closePath();
 }
 
+function showScore(elementId,score) {
+    document.getElementById(elementId).innerText=score;
+}
+function setGameOver() {
+    isGameOver=true;
+}

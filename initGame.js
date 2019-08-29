@@ -11,8 +11,8 @@ let ctx = canvas.getContext("2d");
 let bar=new Bar(canvas);
 let wall= new Wall(canvas);
 let ball1= new Ball(15,5,5,canvas);
-//let ball2= new Ball(15,6,6);
-
+let level=["easy","normal","difficult"];
+let currentLevel=level[0];
 let score={
     currentScore:0,
     bestScore: 0,
@@ -20,5 +20,6 @@ let score={
 };
 let isGameWin=false;
 let isGameOver=false;
+let isGameLose=false;
 //localStorage.setItem("bestScore", '0');
 initGame();

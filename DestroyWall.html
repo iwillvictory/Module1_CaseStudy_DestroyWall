@@ -12,14 +12,68 @@
             border: 2px solid black;
             background: aliceblue;
         }
+
+        div#menu
+        {
+            position: absolute;
+            top: 50px;
+            left: 1310px;
+            width: 250px;
+            height: 300px ;
+            background: aqua;
+        }
+        #menu table{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: blue;
+        }
+        button{
+            width: 150px;
+            color: blue;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvasGame" width="1000px" height="750px">Trình Duyệt Của Bạn Không Hỗ Trợ CanVas</canvas>
+    <div id="menu">
+        <table>
+            <tr>
+                <td style="text-align: right">SCORE:</td>
+                <td ><span id="score" style="color: red">Điểm</span></td>
+            </tr>
+            <tr>
+                <td style="text-align: right">BEST SCORE:</td>
+                <td ><span id="bestScore" style="color: red">Điểm</span></td>
+            </tr>
+            <tr>
+                <td style="text-align: right" >LEVEL: </td>
+                <td>
+                    <select>
+                        <option value="easy" selected>EASY</option>
+                        <option value="normal">NORMAL</option>
+                        <option value="difficult">DIFFICULT</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="btnReplay" onclick="initGame()">REPLAY</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="btnGameOver" onclick="setGameOver()"> GAME OVER</button></td>
+            </tr>
+        </table>
+
+    </div>
     <script src="Wall.js"></script>
     <script src="Bar.js"></script>
     <script src="Ball.js"></script>
-    <script src="General.js"></script>
+    <script src="Utility.js"></script>
     <script src="initGame.js"></script>
 
 </body>

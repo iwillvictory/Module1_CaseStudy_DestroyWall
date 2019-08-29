@@ -28,14 +28,18 @@ function Ball(radius,dx,dy,canvas){
     };
     
     this.processBallBound=function () {
-        if(this.posX > this.canvas.width-this.radius || this.posX < this.radius){
+        let isBallMeetLeftRightBound=this.posX > this.canvas.width-this.radius || this.posX < this.radius;
+        let isBallMeetTopBound=this.posY < this.radius;
+        let isBallMeetBottomBound=this.posY > this.canvas.height-this.radius;
+        if(isBallMeetLeftRightBound){
             this.dx=-this.dx;
         }
-        if( this.posY < this.radius){
+        if( isBallMeetTopBound){
             this.dy=-this.dy;
         }
-        if(this.posY > this.canvas.height-this.radius){
+        if(isBallMeetBottomBound){
             isGameOver=true;
+            isGameLose=true;
         }
     };
     
