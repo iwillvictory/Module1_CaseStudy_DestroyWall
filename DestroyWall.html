@@ -54,7 +54,7 @@
             <tr>
                 <td style="text-align: right" >LEVEL: </td>
                 <td>
-                    <select>
+                    <select onchange="startGame(this.value)">
                         <option value="easy" selected>EASY</option>
                         <option value="normal">NORMAL</option>
                         <option value="difficult">DIFFICULT</option>
@@ -62,7 +62,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><button id="btnReplay" onclick="initGame()">REPLAY</button></td>
+                <td colspan="2"><button id="btnReplay" onclick="startGame()">REPLAY</button></td>
             </tr>
             <tr>
                 <td colspan="2"><button id="btnGameOver" onclick="setGameOver()"> GAME OVER</button></td>
@@ -70,6 +70,7 @@
         </table>
 
     </div>
+    <script src="Level.js"></script>
     <script src="Wall.js"></script>
     <script src="Bar.js"></script>
     <script src="Ball.js"></script>

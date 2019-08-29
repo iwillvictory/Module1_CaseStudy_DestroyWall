@@ -8,19 +8,19 @@ function Brick(posX,posY,color){
     this.color=color;
 }
 
-
-function Wall(canvas){
-    this.canvas=canvas;
+function Wall(canvas,level){
     this.ctx=canvas.getContext("2d");
     this.bricks=[];
-    this.beginX = canvas.width*0.022;
-    this.beginY = canvas.width* 0.02;
-    this.padding= canvas.width* 0.022;
-    this.brickWidth= canvas.width* 0.1;
-    this.brickHeight= canvas.width* 0.05;
-    this.rows= 4;
-    this.columns= 8;
-    this.brickColors=['red','black'];
+    this.beginX = canvas.width*level.beginX;
+    this.beginY = canvas.width* level.beginY;
+    this.padding= canvas.width* level.padding;
+    this.brickWidth= canvas.width* level.brickWidth;
+    this.brickHeight= canvas.width* level.brickHeight;
+    this.rows= level.rowNumber;
+    this.columns= level.columnNumber;
+
+
+    this.brickColors=['red ','black','blue','green','aqua'];
 
     this.init=function () {
         let brick=null;
@@ -30,9 +30,21 @@ function Wall(canvas){
                 posX=this.beginX + j*(this.brickWidth+ this.padding);
                 posY=this.beginY + i*(this.brickHeight + this.padding);
                 if(i%2===0){
-                    color= j%2===0 ? this.brickColors[0] : this.brickColors[1];
+                    switch (j%5) {
+                        case 0: color=this.brickColors[0]; break;
+                        case 1: color=this.brickColors[1]; break;
+                        case 2: color=this.brickColors[2]; break;
+                        case 3: color=this.brickColors[3]; break;
+                        case 4: color=this.brickColors[4]; break;
+                    }
                 }else{
-                    color= j%2===0 ? this.brickColors[1] : this.brickColors[0];
+                    switch (j%5) {
+                        case 0: color=this.brickColors[2]; break;
+                        case 1: color=this.brickColors[3]; break;
+                        case 2: color=this.brickColors[4]; break;
+                        case 3: color=this.brickColors[0]; break;
+                        case 4: color=this.brickColors[1]; break;
+                    }
                 }
                 brick= new Brick(posX,posY,color);
                 this.bricks.push(brick);

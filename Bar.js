@@ -1,13 +1,13 @@
 /////////////////////////PROCESS BAR //////////////////////
 
-function Bar(canvas){
+function Bar(canvas,speed,width){
     this.canvas=canvas;
     this.ctx=canvas.getContext("2d");
-    this.width= 150;
-    this.height= 15;
+    this.width= width;
+    this.height= 10;
     this.posX = canvas.width/2 -75;
     this.posY = canvas.height-15;
-    this.speed=15;
+    this.speed=speed;
     this.maxSpeed=30;
     this.minSpeed=10;
     this.isMovingLeft=false;
@@ -32,24 +32,12 @@ function Bar(canvas){
         }
     };
 
-    this.stopBar=function(event){
-        if(event.keyCode==37){
-            this.isMovingLeft=false;
-
-
-        }else if(event.keyCode==39){
-            this.isMovingRight=false;
-        }
+    this.stopBar=function(){
         this.speed=this.minSpeed;
     };
 
-    this.moveBar=function(event) {
+    this.moveBar=function() {
 
-        if(event.keyCode==37){
-            this.isMovingLeft=true;
-        }else if(event.keyCode==39){
-            this.isMovingRight=true;
-        }
         if(this.speed <this.maxSpeed){
             this.speed+=2;
         }
@@ -63,11 +51,13 @@ function Bar(canvas){
     this.processBarBall=function (ball) {
         let isBallMeetBar=ball.posX+ball.radius > this.posX && ball.posX-ball.radius < this.posX+ this.width &&
                                             ball.posY+ball.radius >= this.canvas.height- this.height;
+        let isBarOppositeDirectionBall1=this.isMovingLeft && ball.dx > 0;
+        let isBarOppositeDirectionBall2=this.isMovingRight && ball.dx < 0;
         if(isBallMeetBar){
             ball.dy=-ball.dy;
-            if(this.isMovingLeft && ball.dx > 0){
+            if(isBarOppositeDirectionBall1){
                 ball.dx=-ball.dx;
-            }else if( this.isMovingRight && ball.dx < 0){
+            }else if( isBarOppositeDirectionBall2){
                 ball.dx=-ball.dx;
             }
 

@@ -41,20 +41,27 @@ function storeBestScore() {
     }
 }
 
+function startGame(level) {
+    if(level){
+        canvas.focus();
+        selectLevel(level);
+    }else{
+        selectLevel(currentLevel);
+    }
+    initGame();
+}
 function initGame() {
+    isGameWin=false;
     isGameOver=false;
+    isGameLose=false;
+    score={
+        currentScore:0,
+        bestScore: 0,
+        maxScore:wall.rows * wall.columns
+    };
     initBestScore();
-    score.currentScore=0;
-    bar=new Bar(canvas);
-    wall= new Wall(canvas);
-    ball1= new Ball(15,5,5,canvas);
     wall.init();
-    document.addEventListener("keyup",function (event) {
-        bar.stopBar(event);
-    });
-    document.addEventListener("keydown",function (event) {
-        bar.moveBar(event);
-    });
+    controlBar();
     drawGame();
 }
 
@@ -66,6 +73,7 @@ function processGameOver() {
         storeBestScore();
     } else if (isGameLose && isGameOver) {
         drawGameOver("YOU ARE LOSE");
+        storeBestScore();
     } else {
         drawGameOver("GAME OVER");
         storeBestScore();
@@ -84,4 +92,50 @@ function showScore(elementId,score) {
 }
 function setGameOver() {
     isGameOver=true;
+}
+
+///////////////PROCESS APPLY LEVEL/////////////
+function selectLevel(level) {
+    currentLevel = level;
+    switch (currentLevel) {
+        case "easy":
+            level = level1;
+            break;
+        case  "normal":
+            level = level2;
+            break;
+        case  "difficult":
+            level = level3;
+            break;
+    }
+
+    applyLevel(level);
+
+}
+
+function applyLevel(level){
+    bar=new Bar(canvas,level.barSpeed,level.barLong);
+    wall= new Wall(canvas,level);
+    ball1= new Ball(level.ballRadius,level.ballSpeedX,level.ballSpeedY,canvas);
+}
+
+/////////CONTROL BAR/////////////////
+
+function controlBar(){
+    document.addEventListener("keyup",function (event) {
+        if(event.keyCode==37){
+            bar.isMovingLeft=false;
+        }else if(event.keyCode==39){
+            bar.isMovingRight=false;
+        }
+        bar.stopBar();
+    });
+    document.addEventListener("keydown",function (event) {
+        if(event.keyCode==37){
+            bar.isMovingLeft=true;
+        }else if(event.keyCode==39){
+            bar.isMovingRight=true;
+        }
+        bar.moveBar();
+    });
 }
