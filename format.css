@@ -1,0 +1,42 @@
+canvas
+{
+    position:absolute;
+    top: 100px;
+    left: 300px;
+    border: 2px solid black;
+    background: aliceblue;
+}
+
+div#menu
+{
+    position: absolute;
+    top: 100px;
+    left: 1310px;
+    width: 250px;
+    height: 300px ;
+    background: aqua;
+}
+#menu table{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: blue;
+}
+button{
+    width: 150px;
+    color: blue;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+div#author{
+    position:absolute;
+    width: 550px;
+    top: 20px;
+    left: 500px;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}

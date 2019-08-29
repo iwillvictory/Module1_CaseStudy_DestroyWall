@@ -32,12 +32,15 @@ function Ball(radius,dx,dy,canvas){
         let isBallMeetTopBound=this.posY < this.radius;
         let isBallMeetBottomBound=this.posY > this.canvas.height-this.radius;
         if(isBallMeetLeftRightBound){
+            playSound();
             this.dx=-this.dx;
         }
         if( isBallMeetTopBound){
+            playSound();
             this.dy=-this.dy;
         }
         if(isBallMeetBottomBound){
+            playSound();
             isGameOver=true;
             isGameLose=true;
         }

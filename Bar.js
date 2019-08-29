@@ -4,9 +4,9 @@ function Bar(canvas,speed,width){
     this.canvas=canvas;
     this.ctx=canvas.getContext("2d");
     this.width= width;
-    this.height= 10;
+    this.height= 15;
     this.posX = canvas.width/2 -75;
-    this.posY = canvas.height-15;
+    this.posY = canvas.height-18;
     this.speed=speed;
     this.maxSpeed=30;
     this.minSpeed=10;
@@ -54,6 +54,7 @@ function Bar(canvas,speed,width){
         let isBarOppositeDirectionBall1=this.isMovingLeft && ball.dx > 0;
         let isBarOppositeDirectionBall2=this.isMovingRight && ball.dx < 0;
         if(isBallMeetBar){
+            playSound();
             ball.dy=-ball.dy;
             if(isBarOppositeDirectionBall1){
                 ball.dx=-ball.dx;

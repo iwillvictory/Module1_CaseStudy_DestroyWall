@@ -68,9 +68,11 @@ function Wall(canvas,level){
 
         for(let brick of this.bricks){
             if(!brick.isDestroy){
-                if(ball.posX >= brick.posX && ball.posX <= brick.posX + this.brickWidth &&
-                    ball.posY + ball.radius >= brick.posY && ball.posY-ball.radius <= brick.posY + this.brickHeight )
+                let isBallMeetWall=ball.posX >= brick.posX && ball.posX <= brick.posX + this.brickWidth &&
+                    ball.posY + ball.radius >= brick.posY && ball.posY-ball.radius <= brick.posY + this.brickHeight;
+                if( isBallMeetWall)
                 {
+                    playSound();
                     ball.dy=-ball.dy;
                     brick.isDestroy=true;
                     score.currentScore++;

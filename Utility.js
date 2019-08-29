@@ -24,7 +24,7 @@ function drawGame() {
         processGameOver();
     }
 }
-
+/////////////WORKING WITH LOCALSTORAGE ///////////////
 function initBestScore() {
     if (localStorage.getItem("bestScore")) {
         score.bestScore = parseInt(localStorage.getItem("bestScore"));
@@ -41,11 +41,33 @@ function storeBestScore() {
     }
 }
 
-function startGame(level) {
+function getCurrentLevel() {
+    if (localStorage.getItem("currentLevel")) {
+        currentLevel = localStorage.getItem("currentLevel");
+    } else {
+        localStorage.setItem("currentLevel", 'easy');
+        currentLevel="easy";
+    }
+}
+function storeCurrentLevel() {
+    localStorage.setItem("currentLevel",levelElement.value);
+}
+
+//////////////////////START GAME ///////////////////
+function startGame(level,selectElement) {
     if(level){
-        canvas.focus();
+        storeCurrentLevel();
+        selectElement.blur();
         selectLevel(level);
     }else{
+        getCurrentLevel();
+        // Set current Level for the level Element.
+        for(let child of levelElement.children){
+            if(child.value==currentLevel){
+                child.selected=true;
+                break;
+            }
+        }
         selectLevel(currentLevel);
     }
     initGame();
@@ -117,6 +139,14 @@ function applyLevel(level){
     bar=new Bar(canvas,level.barSpeed,level.barLong);
     wall= new Wall(canvas,level);
     ball1= new Ball(level.ballRadius,level.ballSpeedX,level.ballSpeedY,canvas);
+
+}
+
+///////////////REPLAY GAME //////////////////
+
+function reloadGame() {
+    location.reload();
+    startGame();
 }
 
 /////////CONTROL BAR/////////////////
@@ -138,4 +168,15 @@ function controlBar(){
         }
         bar.moveBar();
     });
+}
+
+////////// CONTROL AUDIO///////////
+
+function playSound() {
+    let sound= document.getElementById("sound");
+    sound.play();
+}
+function pauseSound() {
+    let sound= document.getElementById("sound");
+    sound.pause();
 }
