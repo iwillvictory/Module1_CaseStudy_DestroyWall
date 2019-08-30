@@ -4,7 +4,7 @@ function Ball(radius,dx,dy,canvas){
     this.canvas=canvas;
     this.ctx=canvas.getContext("2d");
     this.posX=canvas.width/2;
-    this.posY=canvas.height-bar.height- 15;
+    this.posY=canvas.height-bar.height- 30;
     this.radius=radius;
     this.gradient= {r1:3,r2:15};
     this.orderGradient=[0,0.5,1];
@@ -30,7 +30,7 @@ function Ball(radius,dx,dy,canvas){
     this.processBallBound=function () {
         let isBallMeetLeftRightBound=this.posX > this.canvas.width-this.radius || this.posX < this.radius;
         let isBallMeetTopBound=this.posY < this.radius;
-        let isBallMeetBottomBound=this.posY > this.canvas.height-this.radius;
+        let isBallMeetBottomBound=this.posY > this.canvas.height-this.radius-5;
         if(isBallMeetLeftRightBound){
             playSound();
             this.dx=-this.dx;

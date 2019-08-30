@@ -4,7 +4,7 @@ function Bar(canvas,speed,width){
     this.canvas=canvas;
     this.ctx=canvas.getContext("2d");
     this.width= width;
-    this.height= 15;
+    this.height= 10;
     this.posX = canvas.width/2 -75;
     this.posY = canvas.height-18;
     this.speed=speed;
@@ -25,9 +25,11 @@ function Bar(canvas,speed,width){
     };
 
     this.updatePosition= function(){
-        if(this.isMovingLeft && this.posX > 0){
+        let isBarMeetLeftBound=this.isMovingLeft && this.posX > 0;
+        let isBarMeetRightBound=this.isMovingRight && this.posX < this.canvas.width - this.width;
+        if(isBarMeetLeftBound){
             this.posX -=this.speed;
-        }else if(this.isMovingRight && this.posX < this.canvas.width - this.width){
+        }else if(isBarMeetRightBound){
             this.posX +=this.speed;
         }
     };
@@ -50,7 +52,7 @@ function Bar(canvas,speed,width){
 
     this.processBarBall=function (ball) {
         let isBallMeetBar=ball.posX+ball.radius > this.posX && ball.posX-ball.radius < this.posX+ this.width &&
-                                            ball.posY+ball.radius >= this.canvas.height- this.height;
+                                            ball.posY+ball.radius >= this.canvas.height- this.height-8;
         let isBarOppositeDirectionBall1=this.isMovingLeft && ball.dx > 0;
         let isBarOppositeDirectionBall2=this.isMovingRight && ball.dx < 0;
         if(isBallMeetBar){
