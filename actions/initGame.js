@@ -24,4 +24,5 @@ let isGameLose=false;
 let bar,wall,ball1,score;
 let currentLevel="easy";
 
+
 startGame();
