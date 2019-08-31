@@ -28,9 +28,9 @@ function Ball(radius,dx,dy,canvas){
     };
     
     this.processBallBound=function () {
-        let isBallMeetLeftRightBound=this.posX > this.canvas.width-this.radius || this.posX < this.radius;
-        let isBallMeetTopBound=this.posY < this.radius;
-        let isBallMeetBottomBound=this.posY > this.canvas.height-this.radius-5;
+        let isBallMeetLeftRightBound=this.posX >= this.canvas.width-this.radius || this.posX <= this.radius;
+        let isBallMeetTopBound=this.posY <= this.radius;
+        let isBallMeetBottomBound=this.posY >= this.canvas.height-this.radius;
         if(isBallMeetLeftRightBound){
             playSound();
             this.dx=-this.dx;

@@ -70,6 +70,7 @@ function startGame(level,selectElement) {
         }
         selectLevel(currentLevel);
     }
+
     initGame();
 }
 function initGame() {
@@ -82,6 +83,7 @@ function initGame() {
         maxScore:wall.rows * wall.columns
     };
     initBestScore();
+    if(!isGameOver) {  document.getElementById('selectLevel').disabled=true;}
     wall.init();
     controlBar();
     drawGame();
@@ -90,6 +92,7 @@ function initGame() {
 /////////////PROCESS GAMEOVER //////////////////////
 
 function processGameOver() {
+    document.getElementById('selectLevel').disabled=false;
     if (isGameWin && isGameOver) {
         drawGameOver("YOU ARE WIN");
         storeBestScore();
